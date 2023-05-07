@@ -29,13 +29,21 @@ function createImageMarkup(images) {
 function onGalleryContainerClick(event) {
   event.preventDefault();
 
-  window.addEventListener("keydown", closeBtnEsc);
+  // window.addEventListener("keydown", closeBtnEsc);
 
   if (event.target.nodeName !== "IMG") {
     return;
   }
   const originalImage = basicLightbox.create(
-    `<img src="${event.target.dataset.source}" width="800" height="600">`
+    `<img src="${event.target.dataset.source}" width="800" height="600">`,
+    {
+      onShow: (instance) => {
+        window.addEventListener("keydown", closeBtnEsc);
+      },
+      onClose: (instance) => {
+        window.addEventListener("keydown", closeBtnEsc);
+      },
+    }
   );
   originalImage.show();
 
